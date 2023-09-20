@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "stdint.h": "c",
+    "string_view": "c",
+    "memory": "c",
+    "random": "c",
+    "escapeseq.h": "c",
+    "string.h": "c"
+  }
+}
