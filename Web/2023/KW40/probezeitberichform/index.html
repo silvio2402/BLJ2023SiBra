@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Probezeitbericht</title>
+</head>
+
+<body>
+  <h1>Probezeitbericht</h1>
+  <form action="">
+    <label for="lernender">Lernende/r: </label>
+    <input type="text" name="lernender" id="lernender" />
+
+    <br />
+
+    <label for="lehrberuf">Lehrberuf: </label>
+    <select name="lehrberuf" id="lehrberuf">
+      <option value="applikationsentwickler">ApplikationsentwicklerIn</option>
+      <option value="platformentwickler">PlattformentwicklerIn</option>
+    </select>
+
+    <br />
+
+    <fieldset>
+      <legend>Berufsmaturit&auml;t</legend>
+      <input type="radio" name="berufsmaturitaet" id="berufsmaturitaetmitbms" value="mit" />
+      <label for="berufsmaturitaetmitbms">mit BMS</label>
+      <input type="radio" name="berufsmaturitaet" id="berufsmaturitaetohnebms" value="ohne" />
+      <label for="berufsmaturitaetohnebms">ohne BMS</label>
+    </fieldset>
+
+    <label for="lehrbeginn">Lehrbeginn: </label>
+    <input type="date" name="lehrbeginn" id="lehrbeginn" />
+
+    <br />
+
+    <label for="Berufsbildner">Berufsbildner/in: </label>
+    <input type="text" name="Berufsbildner" id="Berufsbildner" />
+
+    <h2>Gesamteindruck</h2>
+    <textarea name="gesamteindruck" id="gesamteindruck"></textarea>
+
+    <h2>Beurteilung</h2>
+    <hr />
+
+    <h3>Fachkompetenz</h3>
+    <p>Fertigkeiten, Kenntnisse, Quantit&auml;t, Qualit&auml;t, etc...</p>
+
+    <input type="checkbox" name="fachkompetenz" id="fachkompetenzsehrgut" value="sehrgut" />
+    <label for="fachkompetenzsehrgut">sehr gut</label>
+    <br />
+    <input type="checkbox" name="fachkompetenz" id="fachkompetenzgut" value="gut" />
+    <label for="fachkompetenzgut">gut</label>
+    <br />
+    <input type="checkbox" name="fachkompetenz" id="fachkompetenzgenuegend" value="genuegend" />
+    <label for="fachkompetenzgenuegend">gen&uuml;gend</label>
+    <br />
+    <input type="checkbox" name="fachkompetenz" id="fachkompetenzungenuegend" value="ungenuegend" />
+    <label for="fachkompetenzungenuegend">ungen&uuml;gend</label>
+
+    <hr />
+
+    <h3>Methodenkompetenz</h3>
+    <p>Lernf&auml;higkeit, Arbeitsmethodik, Arbeitssicherheit, Kreativit&auml;t, etc...</p>
+
+    <input type="checkbox" name="methodenkompetenz" id="methodenkompetenzsehrgut" value="sehrgut" />
+    <label for="methodenkompetenzsehrgut">sehr gut</label>
+    <br />
+    <input type="checkbox" name="methodenkompetenz" id="methodenkompetenzgut" value="gut" />
+    <label for="methodenkompetenzgut">gut</label>
+    <br />
+    <input type="checkbox" name="methodenkompetenz" id="methodenkompetenzgenuegend" value="genuegend" />
+    <label for="methodenkompetenzgenuegend">gen&uuml;gend</label>
+    <br />
+    <input type="checkbox" name="methodenkompetenz" id="methodenkompetenzungenuegend" value="ungenuegend" />
+    <label for="methodenkompetenzungenuegend">ungen&uuml;gend</label>
+
+    <hr />
+
+    <h3>Sozialkompetenz</h3>
+    <p>Teamf&auml;higkeit, Firmenbezug, umweltgerechtes Verhalten, etc...</p>
+
+    <input type="checkbox" name="sozialkompetenz" id="sozialkompetenzsehrgut" value="sehrgut" />
+    <label for="sozialkompetenzsehrgut">sehr gut</label>
+    <br />
+    <input type="checkbox" name="sozialkompetenz" id="sozialkompetenzgut" value="gut" />
+    <label for="sozialkompetenzgut">gut</label>
+    <br />
+    <input type="checkbox" name="sozialkompetenz" id="sozialkompetenzgenuegend" value="genuegend" />
+    <label for="sozialkompetenzgenuegend">gen&uuml;gend</label>
+    <br />
+    <input type="checkbox" name="sozialkompetenz" id="sozialkompetenzungenuegend" value="ungenuegend" />
+    <label for="sozialkompetenzungenuegend">ungen&uuml;gend</label>
+
+    <hr />
+
+    <h3>Selbstkompetenz</h3>
+    <p>Selbstst&auml;ndigkeit, Leistungsbereitschaft, Flexibilit&auml;t, etc...</p>
+
+    <input type="checkbox" name="selbstkompetenz" id="selbstkompetenzsehrgut" value="sehrgut" />
+    <label for="selbstkompetenzsehrgut">sehr gut</label>
+    <br />
+    <input type="checkbox" name="selbstkompetenz" id="selbstkompetenzgut" value="gut" />
+    <label for="selbstkompetenzgut">gut</label>
+    <br />
+    <input type="checkbox" name="selbstkompetenz" id="selbstkompetenzgenuegend" value="genuegend" />
+    <label for="selbstkompetenzgenuegend">gen&uuml;gend</label>
+    <br />
+    <input type="checkbox" name="selbstkompetenz" id="selbstkompetenzungenuegend" value="ungenuegend" />
+    <label for="selbstkompetenzungenuegend">ungen&uuml;gend</label>
+
+    <hr />
+
+    <h2>Fazit</h2>
+
+    <label for="probezeitbestanden">Probezeit: </label>
+    <select name="probezeitbestanden" id="probezeitbestanden">
+      <option value="bestanden">bestanden</option>
+      <option value="verlaengert">verl&auml;ngert</option>
+      <option value="nichtbestanden">nicht bestanden</option>
+    </select>
+
+    <h2>Bemerkungen</h2>
+
+    <textarea name="bemerkungen" id="bemerkungen"></textarea>
+
+    <br /><br />
+
+    <button type="submit">Absenden</button>
+</body>
+
+</html>
