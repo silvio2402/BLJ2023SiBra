@@ -55,6 +55,19 @@ void PaintWindow(HWND hwnd)
   EndPaint(hwnd, &ps);
 }
 
+void LightTogglePos(bool board[ROWS][COLS], unsigned int x, unsigned int y)
+{
+  board[y][x] = !board[y][x];
+  if (x > 0)
+    board[y][x - 1] = !board[y][x - 1];
+  if (x < COLS - 1)
+    board[y][x + 1] = !board[y][x + 1];
+  if (y > 0)
+    board[y - 1][x] = !board[y - 1][x];
+  if (y < ROWS - 1)
+    board[y + 1][x] = !board[y + 1][x];
+}
+
 void HandleLMouseClick(HWND hwnd, POINT pt)
 {
   RECT rect;
@@ -69,24 +82,22 @@ void HandleLMouseClick(HWND hwnd, POINT pt)
   int x = pt.x / cellWidth;
   int y = pt.y / cellHeight;
 
-  board[y][x] = !board[y][x];
-  if (x > 0)
-    board[y][x - 1] = !board[y][x - 1];
-  if (x < COLS - 1)
-    board[y][x + 1] = !board[y][x + 1];
-  if (y > 0)
-    board[y - 1][x] = !board[y - 1][x];
-  if (y < ROWS - 1)
-    board[y + 1][x] = !board[y + 1][x];
+  LightTogglePos(board, x, y);
 
   InvalidateRect(hwnd, NULL, true);
 }
 
 void RandomizeBoard()
 {
-  for (size_t y = 0; y < ROWS; y++)
-    for (size_t x = 0; x < COLS; x++)
-      board[y][x] = rand() % 2 == 0;
+  memset(board, true, sizeof(board));
+
+  for (size_t i = 0; i < 100; i++)
+  {
+    unsigned int x = rand() % COLS;
+    unsigned int y = rand() % ROWS;
+
+    LightTogglePos(board, x, y);
+  }
 }
 
 // Step 4: the Window Procedure
