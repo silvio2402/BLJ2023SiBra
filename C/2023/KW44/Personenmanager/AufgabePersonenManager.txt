@@ -1,0 +1,29 @@
+  Aufgabe Personenmanager
+  =======================
+
+  Ziel der Aufgabe ist es, mit sich mit Strukturen vertraut zu machen und
+  deren Vorteile zu erkennen.
+
+
+
+  Gegeben sind vier Personen: 
+    "John Doe", geb. 1981, 91kg, 196cm;
+    "Jane Doe", geb. 1980, 64kg, 178cm;
+    "Jack Doe", geb. 2008, 40kg, 163cm;
+    "Judy Doe", geb. 2015, 30kg, 124cm;
+
+  Aufgaben:
+  a) Personenangaben sollen als Struktur (TPerson) gestaltet werden
+  b) Speichern der Familie in einem globalen Array, genant family
+     hierzu ist eine Initialisierungsfunktion zu schreiben initFamily()
+  c) Die Familie soll mit einer Ausgabefunktion auf dem Bildschirm dargestellt werden (unsortiert)
+     printFamily() wobei eine einzelne Person mit printPerson(TPerson person) ausgegeben werden soll
+  d) Die älteste Person der Familie soll gesucht und ausgegeben werden
+     Funktion findOldestFamilyMember()
+  e) Es soll eine weitere Information zum Lieblingsverein bei den Personen ergänzt werden
+       -> Struktur TClub als Unterstruktur von TPerson
+       es enthält den Namen des Vereins (max 30 Zeichen) und das Thema des Vereins (max 20 Zeichen). 
+       Verein und Thema können frei gewählt und den Personen zugeteilt werden.
+  f) Ergänzen der Ausgabefunktion printPerson(TPerson person) um Lieblingsverein
+  g) Die Familie soll sortiert ausgegeben werden können, die Wahl des Ausgabekriteriums soll vom
+     Anwender angegeben werden können

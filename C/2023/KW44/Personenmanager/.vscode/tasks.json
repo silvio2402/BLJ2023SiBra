@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "gcc.exe build main",
+      "command": "gcc.exe",
+      "args": [
+        "-std=c17",
+        "-g",
+        "${workspaceFolder}/src/main.c",
+        "-I${workspaceFolder}/src",
+        "-o",
+        "${workspaceFolder}/out/main.exe"
+      ]
+    }
+  ]
+}
