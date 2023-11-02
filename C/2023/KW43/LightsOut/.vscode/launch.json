@@ -5,10 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Build (clang) and debug (gdb) active file",
+      "name": "Build (gcc) and debug (gdb) active file",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/out.exe",
+      "program": "${workspaceFolder}/out/main.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -24,7 +24,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "gcc.exe build active file"
+      "preLaunchTask": "gcc.exe build main"
     }
   ]
 }

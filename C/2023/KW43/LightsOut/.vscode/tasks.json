@@ -3,20 +3,17 @@
   "tasks": [
     {
       "type": "shell",
-      "label": "gcc.exe build active file",
+      "label": "gcc.exe build main",
       "command": "gcc.exe",
       "args": [
         "-std=c17",
         "-g",
-        "${file}",
+        "${workspaceFolder}/src/main.c",
+        "-I${workspaceFolder}/src",
         "-o",
-        "${workspaceFolder}/out.exe",
-        "-mwindows",
-        "-ldwmapi"
-      ],
-      "options": {
-        "cwd": "C:/msys64/mingw64/bin"
-      }
+        "${workspaceFolder}/out/main.exe",
+        "-mwindows"
+      ]
     }
   ]
 }
