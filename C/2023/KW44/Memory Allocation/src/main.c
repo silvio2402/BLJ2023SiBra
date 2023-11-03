@@ -2,14 +2,23 @@
 
 int main()
 {
-  int a[1000] = {2, 33, 97};
+  int *nums = malloc(5 * sizeof(int));
 
-  for (int i = 0; i < 3; i++)
+  if (nums == NULL)
   {
-    printf("%p\n", &a[i]);
+    return 1;
   }
 
-  printf("\n%p\n", a);
+  for (int i = 0; i < 5; i++)
+  {
+    nums[i] = i;
+  }
+
+  if (nums != NULL)
+  {
+    free(nums);
+    nums = NULL;
+  }
 
   return 0;
 }
