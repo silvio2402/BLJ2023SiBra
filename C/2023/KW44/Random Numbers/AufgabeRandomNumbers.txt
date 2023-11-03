@@ -1,0 +1,18 @@
+Aufgabe Random Numbers:
+
+Erstelle ein int-Array von z.B. 500 Einträgen (Anzahl über eine Textkonstante einstellbar)
+
+Implementiere eine Funktion randomNumbers(??,??,??,??), welche das Array mit Zufallszahlen von einem Minimum bis zu einem Maximum füllt
+
+Parameter von randomNumbers()
+  Pointer zum Array
+  Anzahl Elemente im Array
+  Minimumwert
+  Maximumwert
+
+Beispielaufruf:
+#define NUMBER_OF_RANDOMNUMBERS 500
+int myArray[NUMBER_OF_RANDOMNUMBERS];
+randomNumbers(myArray, NUMBER_OF_RANDOMNUMBERS, 10, 104);
+
+
