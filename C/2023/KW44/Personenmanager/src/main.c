@@ -57,7 +57,7 @@ int comparePersonsByField(TPerson *a, TPerson *b, char *field)
   if (strcmpi(field, "height") == 0)
     return a->height - b->height;
   if (strcmpi(field, "name") == 0)
-    return strcmpi(a->name, b->name);
+    return strcmp(a->name, b->name);
 }
 
 void sortFamily()
