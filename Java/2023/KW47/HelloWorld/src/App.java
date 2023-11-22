@@ -28,6 +28,24 @@ public class App {
             System.out.println(dog.name);
         }
 
+        System.out.println("--- Cats ---");
+
+        Cat garfield = new Cat("Garfield", "Tabby", "Orange", 2000);
+        Cat tom = new Cat("Tom", "Tabby", "Grey", 2005);
+        Cat sylvester = new Cat("Sylvester", "Tuxedo", "Black and White", 2010);
+        Cat felix = new Cat("Felix", "Tuxedo", "Black and White", 2015);
+
+        ArrayList<Cat> cats = new ArrayList<Cat>();
+
+        cats.add(garfield);
+        cats.add(tom);
+        cats.add(sylvester);
+        cats.add(felix);
+
+        for (Cat cat : cats) {
+            System.out.println(cat.name);
+        }
+
         in.close();
     }
 }
