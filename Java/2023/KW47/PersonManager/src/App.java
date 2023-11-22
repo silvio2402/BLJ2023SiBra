@@ -1,4 +1,3 @@
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -6,7 +5,10 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner in = new Scanner(System.in);
 
-        Set<Person> people = new HashSet<Person>();
+        PeopleStore peopleStore = new PeopleStore("people.dat");
+        peopleStore.load();
+
+        Set<Person> people = peopleStore.people;
 
         while (true) {
             System.out.println("1. Add person");
@@ -143,6 +145,8 @@ public class App {
             }
 
         }
+
+        peopleStore.save();
 
         in.close();
     }
