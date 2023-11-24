@@ -1,5 +1,7 @@
 
 public class Fish {
+    public static final Long COORD_DIV = (long) 1000;
+
     public enum WaterType {
         FRESHWATER,
         SALTWATER
@@ -11,8 +13,8 @@ public class Fish {
 
     public String bitmap;
 
-    public Integer x;
-    public Integer y;
+    public Double x;
+    public Double y;
     public boolean lookingRight = true;
 
     public Fish(String type, WaterType waterType, Integer speed, String bitmap) {
