@@ -3,6 +3,8 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <Adafruit_AHTX0.h>
+#include <Adafruit_Sensor.h>
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 32
@@ -10,14 +12,13 @@
 #define OLED_RESET -1
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#define TEMT6000_PIN A6
-
-#define ADC_RESOLUTION 12
-#define ADC_MAX_VALUE ((1 << ADC_RESOLUTION) - 1)
+Adafruit_AHTX0 aht;
 
 void setup()
 {
   Serial.begin(115200);
+
+  display.display();
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
   {
@@ -26,7 +27,12 @@ void setup()
       ;
   }
 
-  display.display();
+  if (!aht.begin())
+  {
+    Serial.println("Could not find AHT? Check wiring");
+    while (1)
+      ;
+  }
 
   display.clearDisplay();
 
@@ -37,21 +43,20 @@ void setup()
   display.display();
 
   Serial.println("Hello World!");
-
-  pinMode(TEMT6000_PIN, INPUT);
-
-  analogReadResolution(ADC_RESOLUTION);
 }
 
 void loop()
 {
-  uint16_t value = analogRead(TEMT6000_PIN);
-
   display.clearDisplay();
   display.setCursor(0, 0);
 
   display.println("Bombastic");
-  display.println("Light Sensor: " + String((float)value / ADC_MAX_VALUE * 100) + "%");
+
+  sensors_event_t humidity, temp;
+  aht.getEvent(&humidity, &temp);
+
+  display.println("Humidity: " + String(humidity.relative_humidity) + "%");
+  display.println("Temperature: " + String(temp.temperature) + "C");
 
   display.display();
 
