@@ -13,7 +13,7 @@ export async function analyze(filename: string): Promise<TextAnalysis> {
   const text = await Bun.file(filename).text();
 
   const words = text.split("\n").flatMap((line) => {
-    line = line.trim().replace(/[^ \p{Letter}]+/gu, "");
+    line = line.trim().replace(/[^ \p{Letter}0-9]+/gu, "");
     return line.split(" ").flatMap((w) => {
       w = w.trim();
       if (w.length <= 0) return [];
