@@ -1,0 +1,16 @@
+1/12/2024, 11:56:28 AM /mnt/c/Users/Work/OneDrive - Noser Young AG/NY Documents/BLJ2023SiBra/TypeScript/2024/KW02/TextAnalyzer/src/script.txt
+--------------------
+Number of unique words:	1830
+Total number of words:	9143
+Most common word:	you
+--------------------
+you	275
+the	259
+a	258
+i	239
+to	191
+it	167
+of	134
+this	121
+is	115
+and	108
