@@ -2,14 +2,13 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import exceptions.InvalidWordException;
 
 public class App {
     static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, Wordle!");
-        System.out.println("Start guessing!");
-        System.out.println();
         playGame();
     }
 
@@ -23,7 +22,14 @@ public class App {
         }
 
         while (true) {
-            WordleGame game = new WordleGame(wordList);
+            System.out.println("Enable hard mode?");
+            System.out.println("Press 'y' to enable, or any other key to disable.");
+            boolean hardMode = in.nextLine().equals("y");
+
+            WordleGame game = new WordleGame(wordList, hardMode);
+
+            System.out.println("Start guessing!");
+            System.out.println();
 
             while (true) {
                 String guess = inputGuess(game);
@@ -46,12 +52,18 @@ public class App {
     }
 
     private static String inputGuess(WordleGame game) {
-        String guess = in.nextLine();
-        guess = String.format("%-5s", guess).toLowerCase();
-        System.out.print("\033[A\033[2K\r");
-        LetterState[] result = game.guessWord(guess);
-        printResult(result, guess);
-        return guess;
+        while (true) {
+            try {
+
+                String guess = in.nextLine();
+                LetterState[] result = game.guessWord(guess);
+                System.out.print("\033[A\033[2K\r");
+                printResult(result, guess);
+                return guess;
+            } catch (InvalidWordException e) {
+                System.out.println(e.getMessage() + " Try again!");
+            }
+        }
     }
 
     private static Map<LetterState, String> letterStateColors;

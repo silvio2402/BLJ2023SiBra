@@ -19,7 +19,7 @@ public class WordList {
   }
 
   public WordList() throws FileNotFoundException {
-    this("./src/wordlist.txt");
+    this("./wordlist.txt");
   }
 
   public String getRandomWord() {
