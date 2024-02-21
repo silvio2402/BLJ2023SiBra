@@ -26,4 +26,8 @@ public class WordleGame {
     }
     return result;
   }
+
+  public boolean isCorrect(String guess) {
+    return this.word.equals(guess);
+  }
 }

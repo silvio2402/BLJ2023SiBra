@@ -22,19 +22,36 @@ public class App {
             return;
         }
 
-        WordleGame game = new WordleGame(wordList);
-
         while (true) {
-            inputGuess(game);
+            WordleGame game = new WordleGame(wordList);
+
+            while (true) {
+                String guess = inputGuess(game);
+
+                if (game.isCorrect(guess)) {
+                    System.out.println("You win!");
+                    System.out.println();
+
+                    System.out.println("Start a new game?");
+                    System.out.println("Press 'y' to start a new game, or any other key to exit.");
+                    String input = in.nextLine();
+                    if (input.equals("y")) {
+                        break;
+                    } else {
+                        System.exit(0);
+                    }
+                }
+            }
         }
     }
 
-    private static void inputGuess(WordleGame game) {
+    private static String inputGuess(WordleGame game) {
         String guess = in.nextLine();
-        guess = String.format("%-5s", guess);
+        guess = String.format("%-5s", guess).toLowerCase();
         System.out.print("\033[A\033[2K\r");
         LetterState[] result = game.guessWord(guess);
         printResult(result, guess);
+        return guess;
     }
 
     private static Map<LetterState, String> letterStateColors;
