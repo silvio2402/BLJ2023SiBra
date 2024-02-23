@@ -51,7 +51,8 @@ public class WordleGame {
       char guessLetter = guess.charAt(i);
       char previousGuessLetter = this.previousGuess.charAt(i);
       LetterState previousLetterResult = this.previousResult[i];
-      if (previousLetterResult == LetterState.PRESENT && guessLetter != letter
+      if (this.hardMode
+          && previousLetterResult == LetterState.PRESENT && guessLetter != letter
           && guess.indexOf(previousGuessLetter) == -1) {
         throw new InvalidWordException("You cannot remove a previously present letter.");
       }
