@@ -1,17 +1,29 @@
-import java.awt.Point;
+import java.awt.Graphics2D;
 
-public class CSPoint extends Point {
-  private static int sequence = 0;
-
-  private int id;
+public class CSPoint implements CSObject {
+  private int x;
+  private int y;
 
   public CSPoint(int x, int y) {
-    super(x, y);
-
-    this.id = sequence++;
+    this.x = x;
+    this.y = y;
   }
 
-  public CSPoint() {
-    this(0, 0);
+  public int getX() {
+    return x;
+  }
+
+  public int getY() {
+    return y;
+  }
+
+  @Override
+  public void paint(Graphics2D g2d) {
+    g2d.drawLine(x, y, x, y);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("CSPoint[x=%d, y=%d]", x, y);
   }
 }

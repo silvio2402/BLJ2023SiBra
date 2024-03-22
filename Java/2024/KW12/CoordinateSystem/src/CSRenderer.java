@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+// import java.awt.Point;
+// import java.awt.event.MouseAdapter;
+// import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -104,21 +105,22 @@ public class CSRenderer extends JPanel {
     g2d.setColor(Color.RED);
     g2d.drawLine(OFFSET_MID, OFFSET_MID, OFFSET_MID, OFFSET_MID);
 
-    // all points
+    // save transform
+    AffineTransform saveAT = g2d.getTransform();
+
+    // translate to coordinate system
+    g2d.translate(OFFSET_MID, OFFSET_MID);
+    g2d.scale(fieldScale, -fieldScale);
+
+    // all objects
     g2d.setStroke(new BasicStroke(pointSize));
-    for (CSPoint point : cs.getPoints()) {
-      CSPoint translatedPoint = translatePoint(point);
-      g2d.setColor(Color.BLUE);
-      g2d.drawLine(translatedPoint.x, translatedPoint.y, translatedPoint.x, translatedPoint.y);
+    for (CSObject object : cs.getObjects()) {
+      // paint the object
+      object.paint(g2d);
     }
 
-    // all line segments
-    for (CSLineSegment lineSegment : cs.getLineSegments()) {
-      CSPoint p1 = translatePoint(lineSegment.getP1());
-      CSPoint p2 = translatePoint(lineSegment.getP2());
-      g2d.setColor(Color.GREEN);
-      g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-    }
+    // restore transform
+    g2d.setTransform(saveAT);
   }
 
   /**
@@ -129,9 +131,10 @@ public class CSRenderer extends JPanel {
    * @param point The absolute point to convert.
    * @return The converted point.
    */
-  private CSPoint translatePoint(Point point) {
-    return new CSPoint(point.x * fieldScale + size / 2, size / 2 - point.y * fieldScale);
-  }
+  // private Point translatePoint(Point point) {
+  // return new Point(point.x * fieldScale + size / 2, size / 2 - point.y *
+  // fieldScale);
+  // }
 
   /**
    * This method sets up the mouse motion listener, which gets called every time
@@ -142,19 +145,21 @@ public class CSRenderer extends JPanel {
    *               means that the both coordinates must be an exact match.
    */
   private void setupMouseMotionListener(int leeway) {
-    int scaledLeeway = leeway + pointSize / 2;
-    this.addMouseMotionListener(new MouseAdapter() {
-      @Override
-      public void mouseMoved(MouseEvent me) {
-        for (CSPoint point : cs.getPoints()) {
-          CSPoint tp = translatePoint(point);
+    // int scaledLeeway = leeway + pointSize / 2;
+    // this.addMouseMotionListener(new MouseAdapter() {
+    // @Override
+    // public void mouseMoved(MouseEvent me) {
+    // for (CSObject point : cs.getObjects()) {
+    // CSPoint tp = translatePoint(point);
 
-          if ((me.getPoint().x >= tp.x - scaledLeeway && me.getPoint().x <= tp.x + scaledLeeway)
-              && (me.getPoint().y >= tp.y - scaledLeeway && me.getPoint().y <= tp.y + scaledLeeway)) {
-            mainFrame.setTitle(point.toString());
-          }
-        }
-      }
-    });
+    // if ((me.getPoint().x >= tp.x - scaledLeeway && me.getPoint().x <= tp.x +
+    // scaledLeeway)
+    // && (me.getPoint().y >= tp.y - scaledLeeway && me.getPoint().y <= tp.y +
+    // scaledLeeway)) {
+    // mainFrame.setTitle(point.toString());
+    // }
+    // }
+    // }
+    // });
   }
 }
