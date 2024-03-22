@@ -5,6 +5,7 @@ public class CoordinateSystem {
   public int height;
 
   private ArrayList<CSPoint> points = new ArrayList<CSPoint>();
+  private ArrayList<CSLineSegment> lineSegments = new ArrayList<CSLineSegment>();
 
   public CoordinateSystem(int width, int height) {
     // check if width and height are positive
@@ -29,7 +30,15 @@ public class CoordinateSystem {
     points.add(point);
   }
 
+  public void addLineSegment(CSLineSegment lineSegment) {
+    lineSegments.add(lineSegment);
+  }
+
   public ArrayList<CSPoint> getPoints() {
     return points;
+  }
+
+  public ArrayList<CSLineSegment> getLineSegments() {
+    return lineSegments;
   }
 }
