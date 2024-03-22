@@ -32,4 +32,12 @@ public class CoordinateSystem {
   public ArrayList<CSObject> getObjects() {
     return objects;
   }
+
+  public double getDistance(CSPoint p1, CSPoint p2) {
+    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+  }
+
+  public double getSlope(CSPoint p1, CSPoint p2) {
+    return (p2.y - p1.y) / (p2.x - p1.x);
+  }
 }
