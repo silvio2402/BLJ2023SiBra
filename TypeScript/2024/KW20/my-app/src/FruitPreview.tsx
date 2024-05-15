@@ -5,7 +5,7 @@ type FruitProp = Fruit;
 
 function FruitPreview({ name, image, price }: FruitProp) {
   return (
-    <div>
+    <div className="text-blue-600">
       <h1>{name}</h1>
       <img src={image} />
       <p>Price: {price}</p>
