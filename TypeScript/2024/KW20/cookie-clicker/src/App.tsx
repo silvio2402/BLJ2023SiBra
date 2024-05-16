@@ -1,10 +1,12 @@
-import { useState } from "react";
 import "./App.css";
+import ClickerParticles from "./ClickerParticles";
+import Clicker from "./Clicker";
 
 function App() {
   return (
     <>
-      <h1>Hello World</h1>
+      <Clicker />
+      <ClickerParticles />
     </>
   );
 }
