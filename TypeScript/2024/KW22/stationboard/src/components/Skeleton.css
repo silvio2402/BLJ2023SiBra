@@ -1,0 +1,6 @@
+.skeleton {
+  display: block;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
