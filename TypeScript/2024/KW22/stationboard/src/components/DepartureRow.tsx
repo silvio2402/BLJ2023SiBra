@@ -1,4 +1,5 @@
 import type { StationboardItem } from "../lib/types";
+import "./DepartureRow.css";
 
 interface DepartureRowProps {
   stationboardItem: StationboardItem;
@@ -11,7 +12,7 @@ function DepartureRow({ stationboardItem }: DepartureRowProps) {
   });
 
   return (
-    <tr>
+    <tr className="departure-row">
       <td>
         {dateFormatter.format(new Date(stationboardItem.stop.departure!))}
       </td>
@@ -22,6 +23,12 @@ function DepartureRow({ stationboardItem }: DepartureRowProps) {
           : null}
       </td>
       <td>{stationboardItem.to}</td>
+      <td>Platform {stationboardItem.stop.platform}</td>
+      <td>
+        {stationboardItem.stop.delay
+          ? `+${stationboardItem.stop.delay} min`
+          : null}
+      </td>
     </tr>
   );
 }

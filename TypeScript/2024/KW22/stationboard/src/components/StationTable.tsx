@@ -1,4 +1,5 @@
 import DepartureRow from "./DepartureRow";
+import "./StationTable.css";
 import type { StationboardItem } from "../lib/types";
 
 interface StationTableProps {
@@ -7,22 +8,13 @@ interface StationTableProps {
 
 function StationTable({ stationboard }: StationTableProps) {
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Departure</th>
-            <th>Line</th>
-            <th>To</th>
-          </tr>
-        </thead>
-        <tbody>
-          {stationboard.map((item) => (
-            <DepartureRow key={item.stop.departure} stationboardItem={item} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <table className="station-table">
+      <tbody>
+        {stationboard.map((item) => (
+          <DepartureRow key={item.name} stationboardItem={item} />
+        ))}
+      </tbody>
+    </table>
   );
 }
 

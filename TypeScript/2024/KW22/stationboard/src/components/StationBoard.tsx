@@ -4,8 +4,12 @@ import StationTable from "./StationTable";
 import StationTitle from "./StationTitle";
 
 function StationBoard() {
-  const { isLoading, error, data } = useQuery("stationBoard", () =>
-    queryStationboard("8503000")
+  const { isLoading, error, data } = useQuery(
+    "stationBoard",
+    () => queryStationboard("8503000"),
+    {
+      refetchInterval: 10000,
+    }
   );
 
   const station = data?.station;
