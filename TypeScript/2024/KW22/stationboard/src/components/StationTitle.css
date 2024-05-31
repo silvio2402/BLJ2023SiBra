@@ -1,4 +1,10 @@
+.station-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .station-title {
-  font-size: 7rem;
+  font-size: 6rem;
   margin: 0;
 }

@@ -23,7 +23,11 @@ function DepartureRow({ stationboardItem }: DepartureRowProps) {
           : null}
       </td>
       <td>{stationboardItem.to}</td>
-      <td>Platform {stationboardItem.stop.platform}</td>
+      <td>
+        {stationboardItem.stop.platform
+          ? `Platform ${stationboardItem.stop.platform}`
+          : "-"}
+      </td>
       <td>
         {stationboardItem.stop.delay
           ? `+${stationboardItem.stop.delay} min`

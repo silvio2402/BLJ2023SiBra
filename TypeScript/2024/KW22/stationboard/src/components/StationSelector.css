@@ -1,0 +1,80 @@
+.dropbutton {
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0.1rem;
+  border: none;
+}
+
+.dropbutton:hover {
+  background-color: white;
+  color: #333;
+}
+
+.dropbutton:active {
+  background-color: #aaa;
+}
+
+.station-selector {
+  width: 300px;
+  background-color: #f9f9f9;
+  color: #333;
+  border-radius: calc(1rem - 5px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.search {
+  display: flex;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.stations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.station {
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #eee;
+  display: flex;
+  align-items: left;
+}
+
+.station>span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.station:hover {
+  background-color: #ddd;
+}
+
+.station:active {
+  background-color: #ccc;
+}
+
+.station-skeleton {
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background-color: #eee;
+}
+
+.station-skeleton::after {
+  content: "";
+  height: 1.2em;
+}

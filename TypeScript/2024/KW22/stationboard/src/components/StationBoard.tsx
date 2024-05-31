@@ -2,24 +2,38 @@ import { useQuery } from "react-query";
 import { queryStationboard } from "../lib/api";
 import StationTable from "./StationTable";
 import StationTitle from "./StationTitle";
+import { Station } from "../lib/types";
+import { useState } from "react";
 
 function StationBoard() {
-  const { isLoading, error, data } = useQuery(
-    "stationBoard",
-    () => queryStationboard("8503000"),
+  const [selectedStation, setSelectedStation] = useState<Station>({
+    id: "8503000",
+    name: "Zürich HB",
+    coordinate: { type: "WGS84", x: 47.378177, y: 8.540192 },
+  });
+
+  const { error, data } = useQuery(
+    ["stationBoard", selectedStation?.id],
+    () => {
+      if (!selectedStation || !selectedStation.id)
+        return { station: { coordinate: {} }, stationboard: [] };
+      return queryStationboard(selectedStation.id);
+    },
     {
       refetchInterval: 10000,
     }
   );
 
-  const station = data?.station;
   const stationboard = data?.stationboard;
 
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
+      <StationTitle
+        selectedStation={selectedStation}
+        setSelectedStation={setSelectedStation}
+      />
+
       {!!error && <p>Error: {String(error)}</p>}
-      {station?.name && <StationTitle stationName={station.name} />}
       {stationboard && <StationTable stationboard={stationboard} />}
     </div>
   );
