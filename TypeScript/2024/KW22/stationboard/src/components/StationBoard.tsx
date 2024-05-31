@@ -14,13 +14,10 @@ function StationBoard() {
 
   const { error, data } = useQuery(
     ["stationBoard", selectedStation?.id],
-    () => {
-      if (!selectedStation || !selectedStation.id)
-        return { station: { coordinate: {} }, stationboard: [] };
-      return queryStationboard(selectedStation.id);
-    },
+    () => queryStationboard(selectedStation.id!),
     {
       refetchInterval: 10000,
+      enabled: !!selectedStation?.id,
     }
   );
 

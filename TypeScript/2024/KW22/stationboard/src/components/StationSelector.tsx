@@ -12,16 +12,10 @@ interface StationSelectorProps {
 function StationSelector({ selectStation }: StationSelectorProps) {
   const [query, setQuery] = useState("");
 
-  const { data } = useQuery(
-    ["stations", query],
-    () => {
-      if (query === "") return { stations: [] as Station[] };
-      return queryStations(query);
-    },
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data } = useQuery(["stations", query], () => queryStations(query), {
+    keepPreviousData: true,
+    enabled: !!query,
+  });
 
   const stations = data?.stations;
 
