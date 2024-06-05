@@ -10,14 +10,16 @@ class Position {
 
 public class Game {
 
-  public byte WALL_MASK = 1 << 0; // 0000 0001
-  public byte PLAYER_MASK = 1 << 1; // 0000 0010
-  public byte GOAL_MASK = 1 << 2; // 0000 0100
-  public byte BOX_MASK = 1 << 3; // 0000 1000
+  public static final byte WALL_MASK = 1 << 0; // 0000 0001
+  public static final byte PLAYER_MASK = 1 << 1; // 0000 0010
+  public static final byte GOAL_MASK = 1 << 2; // 0000 0100
+  public static final byte BOX_MASK = 1 << 3; // 0000 1000
 
   private byte[][] gameField;
+  private int level = 0;
 
   public Game() {
+    Levels.loadLevels();
     resetField();
   }
 
@@ -59,6 +61,8 @@ public class Game {
 
     gameField[nextPosition.x][nextPosition.y] |= PLAYER_MASK;
     gameField[playerPosition.x][playerPosition.y] &= ~PLAYER_MASK;
+
+    checkWin();
   }
 
   private Position getNextPosition(Position firstPosition, Direction direction) {
@@ -101,20 +105,10 @@ public class Game {
 
   public void resetField() {
     System.out.println("ESC");
-    gameField = new byte[][] {
-        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-        { 0, 0, 0, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, 0, 0, },
-        { 0, WALL_MASK, WALL_MASK, WALL_MASK, 0, 0, 0, WALL_MASK, 0, 0, },
-        { 0, WALL_MASK, GOAL_MASK, PLAYER_MASK, BOX_MASK, 0, 0, WALL_MASK, 0, 0, },
-        { 0, WALL_MASK, WALL_MASK, WALL_MASK, 0, BOX_MASK, GOAL_MASK, WALL_MASK, 0, 0, },
-        { 0, WALL_MASK, GOAL_MASK, WALL_MASK, WALL_MASK, BOX_MASK, 0, WALL_MASK, 0, 0, },
-        { 0, WALL_MASK, 0, WALL_MASK, 0, GOAL_MASK, 0, WALL_MASK, WALL_MASK, 0, },
-        { 0, WALL_MASK, BOX_MASK, 0,
-            (byte) (GOAL_MASK | BOX_MASK), BOX_MASK, BOX_MASK, GOAL_MASK, WALL_MASK, 0, },
-        { 0, WALL_MASK, 0, 0, 0, GOAL_MASK, 0, 0, WALL_MASK, 0, },
-        { 0, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, WALL_MASK, 0, },
-        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, }
-    };
+
+    byte[][] levelToCopy = Levels.levels.get(level);
+
+    gameField = java.util.Arrays.stream(levelToCopy).map(el -> el.clone()).toArray($ -> levelToCopy.clone());
   }
 
   public byte[][] getField() {
@@ -127,5 +121,23 @@ public class Game {
 
   public int getRowCount() {
     return gameField[0].length;
+  }
+
+  private void checkWin() {
+    for (int x = 0; x < gameField.length; x++) {
+      for (int y = 0; y < gameField[x].length; y++) {
+        if ((gameField[x][y] & GOAL_MASK) > 0 && (gameField[x][y] & BOX_MASK) == 0) {
+          return;
+        }
+      }
+    }
+
+    System.out.println("WIN");
+
+    level++;
+    if (level >= Levels.levels.size()) {
+      level = 0;
+    }
+    resetField();
   }
 }

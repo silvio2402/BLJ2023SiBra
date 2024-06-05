@@ -79,7 +79,21 @@ public class GameIO extends JFrame {
     });
   }
 
+  private void updateSize() {
+    int width = game.getRowCount() * scale;
+    int height = game.getColCount() * scale;
+
+    if (width != displayArea.getWidth() || height != displayArea.getHeight()) {
+      displayArea = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+      this.getContentPane().removeAll();
+      this.getContentPane().add(new JLabel(new ImageIcon(displayArea)));
+      this.pack();
+    }
+  }
+
   private void updateOutput() {
+    updateSize();
+
     Graphics2D g2d = (Graphics2D) displayArea.getGraphics();
 
     for (int x = 0; x < game.getRowCount(); x++) {
@@ -89,23 +103,23 @@ public class GameIO extends JFrame {
 
         byte field = game.getField()[y][x];
 
-        if ((field & game.WALL_MASK) > 0) {
+        if ((field & Game.WALL_MASK) > 0) {
           g2d.drawImage(WALL_IMAGE, scaledX, scaledY, scale, scale, null);
         } else {
           g2d.drawImage(FLOOR_IMAGE, scaledX, scaledY, scale, scale, null);
         }
 
-        if ((field & game.PLAYER_MASK) > 0) {
+        if ((field & Game.PLAYER_MASK) > 0) {
           g2d.drawImage(PLAYER_IMAGE, scaledX, scaledY, scale, scale, null);
         }
 
-        if ((field & game.BOX_MASK) > 0) {
-          if ((field & game.GOAL_MASK) > 0) {
+        if ((field & Game.BOX_MASK) > 0) {
+          if ((field & Game.GOAL_MASK) > 0) {
             g2d.drawImage(BOX_ON_GOAL_IMAGE, scaledX, scaledY, scale, scale, null);
           } else {
             g2d.drawImage(BOX_IMAGE, scaledX, scaledY, scale, scale, null);
           }
-        } else if ((field & game.GOAL_MASK) > 0) {
+        } else if ((field & Game.GOAL_MASK) > 0) {
           g2d.drawImage(GOAL_IMAGE, scaledX, scaledY, scale, scale, null);
         }
       }
