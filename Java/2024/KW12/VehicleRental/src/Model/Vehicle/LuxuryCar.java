@@ -1,4 +1,4 @@
-package Vehicle;
+package Model.Vehicle;
 
 public class LuxuryCar extends Vehicle {
   public int horsePower;

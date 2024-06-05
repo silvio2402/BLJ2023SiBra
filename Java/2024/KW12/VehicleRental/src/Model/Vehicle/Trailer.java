@@ -1,4 +1,4 @@
-package Vehicle;
+package Model.Vehicle;
 
 public class Trailer extends Vehicle {
   public double length;

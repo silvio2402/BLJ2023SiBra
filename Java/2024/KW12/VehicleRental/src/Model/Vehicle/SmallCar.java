@@ -1,4 +1,4 @@
-package Vehicle;
+package Model.Vehicle;
 
 public class SmallCar extends Vehicle {
   public int seats;

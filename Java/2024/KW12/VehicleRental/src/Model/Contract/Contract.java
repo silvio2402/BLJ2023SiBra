@@ -1,17 +1,20 @@
-package Contract;
+package Model.Contract;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
-import Person.Person;
+import Exception.MinorAgeException;
+import Model.Person.Person;
 
 public class Contract {
-  public Set<Person> parties;
+  public List<Person> parties;
   public List<Signature> signatures;
   public String contractText;
 
-  public void signContract(Person person, String location) {
+  public void signContract(Person person, String location) throws MinorAgeException {
+    if (person.birthdate.isAfter(LocalDate.now().minusYears(18))) {
+      throw new MinorAgeException();
+    }
     LocalDate signingDate = LocalDate.now();
     Signature signature = new Signature(person, signingDate, location);
     signatures.add(signature);

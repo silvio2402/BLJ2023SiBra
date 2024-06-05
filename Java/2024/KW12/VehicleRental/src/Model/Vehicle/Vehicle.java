@@ -1,4 +1,4 @@
-package Vehicle;
+package Model.Vehicle;
 
 public abstract class Vehicle {
   public String name;

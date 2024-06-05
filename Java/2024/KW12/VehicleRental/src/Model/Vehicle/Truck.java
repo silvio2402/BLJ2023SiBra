@@ -1,4 +1,4 @@
-package Vehicle;
+package Model.Vehicle;
 
 public class Truck extends Vehicle {
   public int payloadCapacity;

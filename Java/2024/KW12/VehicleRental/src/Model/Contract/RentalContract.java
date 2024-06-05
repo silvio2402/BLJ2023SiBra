@@ -1,9 +1,9 @@
-package Contract;
+package Model.Contract;
 
 import java.time.LocalDate;
 
-import Person.Person;
-import Vehicle.Vehicle;
+import Model.Person.Person;
+import Model.Vehicle.Vehicle;
 
 public class RentalContract extends Contract {
   public Person renter;

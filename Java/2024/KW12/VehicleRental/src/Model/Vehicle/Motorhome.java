@@ -1,4 +1,4 @@
-package Vehicle;
+package Model.Vehicle;
 
 public class Motorhome extends Vehicle {
   public int waterCapacity;

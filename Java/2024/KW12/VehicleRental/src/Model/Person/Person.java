@@ -1,4 +1,4 @@
-package Person;
+package Model.Person;
 
 import java.time.LocalDate;
 
@@ -18,6 +18,9 @@ public class Person {
     this.birthdate = birthdate;
     this.telephone = telephone;
     this.email = email;
+  }
+
+  public Person() {
   }
 
   public String getFullName() {

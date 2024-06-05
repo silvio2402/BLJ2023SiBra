@@ -1,8 +1,8 @@
-package Contract;
+package Model.Contract;
 
 import java.time.LocalDate;
 
-import Person.Person;
+import Model.Person.Person;
 
 public class Signature {
   public Person signer;
