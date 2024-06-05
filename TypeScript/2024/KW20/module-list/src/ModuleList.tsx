@@ -1,69 +1,105 @@
+import { ExpandMore } from "@mui/icons-material";
 import {
   Card,
   CardActions,
   CardContent,
+  Collapse,
+  IconButton,
   Rating,
+  Skeleton,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useState } from "react";
+import { getModules, Module, useToken } from "./api";
+import { useQuery } from "@tanstack/react-query";
 
-type Module = {
-  id: number;
-  title: string;
-  rating: number;
-};
+interface ModulePreviewProps {
+  module: Module;
+  onRatingChange?: (rating: number | null) => void;
+}
 
-function ModuleList() {
-  const [modules, setModules] = useState<Module[]>([
-    {
-      id: 117,
-      title:
-        "Informatik- und Netzinfrastruktur für ein kleines Unternehmen realisieren",
-      rating: 0,
-    },
-    {
-      id: 122,
-      title: "Abläufe mit einer Scriptsprache automatisieren",
-      rating: 0,
-    },
-    { id: 162, title: "Daten analysieren und modellieren", rating: 0 },
-    { id: 164, title: "Datenbanken erstellen und Daten einfügen", rating: 0 },
-    { id: 231, title: "Datenschutz und Datensicherheit anwenden", rating: 0 },
-    { id: 293, title: "Webauftritt erstellen und veröffentlichen", rating: 0 },
-    { id: 319, title: "Applikationen entwerfen und implementieren", rating: 0 },
-    {
-      id: 431,
-      title: "Aufträge im eigenen Berufsumfeld selbstständig durchführen",
-      rating: 0,
-    },
-  ]);
+function ModulePreview({ module, onRatingChange }: ModulePreviewProps) {
+  const theme = useTheme();
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <Card sx={{ minWidth: 100 }} elevation={3} key={module.beembk_modulid}>
+      <CardContent sx={{ paddingBottom: 0 }}>
+        <Typography variant="h6" component="h2">
+          {module.beembk_modulnummer}
+        </Typography>
+        <Typography variant="body2">{module.beembk_modultitel}</Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <Rating
+          value={3} // TODO
+          onChange={(_, newValue) => onRatingChange && onRatingChange(newValue)}
+        />
+        <IconButton
+          aria-label="show more"
+          aria-expanded={expanded}
+          sx={{
+            marginLeft: "auto",
+            transition: theme.transitions.create("transform", {
+              duration: theme.transitions.duration.shortest,
+            }),
+            transform: !expanded ? "rotate(0deg)" : "rotate(180deg)",
+          }}
+          onClick={() => setExpanded((expanded) => !expanded)}
+        >
+          <ExpandMore />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography variant="body2" color="textSecondary">
+            {module.beembk_objektbeschreibung}
+          </Typography>
+        </CardContent>
+      </Collapse>
+    </Card>
+  );
+}
+
+interface ModuleListProps {
+  selectedAbschluss: string | undefined;
+}
+
+function ModuleList({ selectedAbschluss }: ModuleListProps) {
+  const token = useToken();
+
+  const { data: modules, isPending } = useQuery({
+    queryKey: ["modules"],
+    queryFn: () => getModules(token!),
+    enabled: !!token,
+  });
+
+  console.log(isPending);
+
+  console.log(modules);
 
   return (
     <Stack spacing={2}>
-      {modules.map((module) => (
-        <Card sx={{ minWidth: 100 }}>
-          <CardContent sx={{ paddingBottom: 0 }}>
-            <Typography variant="h6" component="h2">
-              {module.id}
-            </Typography>
-            <Typography variant="body2">{module.title}</Typography>
-          </CardContent>
-          <CardActions>
-            <Rating
-              value={module.rating}
-              onChange={(_, newValue) => {
-                if (newValue === null) return;
-                setModules((modules) =>
-                  modules.map((m) =>
-                    m.id === module.id ? { ...m, rating: newValue } : m
-                  )
-                );
-              }}
+      {!modules || isPending
+        ? Array.from({ length: 8 }).map((_, index) => (
+            <Skeleton key={index} variant="rectangular" height={100} />
+          ))
+        : modules.map((module) => (
+            <ModulePreview
+              key={module.beembk_modulnummer}
+              module={module}
+              // TODO
+              // onRatingChange={(rating) => {
+              //   setModules((modules) =>
+              //     modules.map((m) =>
+              //       m.id === module.id ? { ...m, rating } : m
+              //     )
+              //   );
+              // }}
             />
-          </CardActions>
-        </Card>
-      ))}
+          ))}
     </Stack>
   );
 }
