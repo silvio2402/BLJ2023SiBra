@@ -1,13 +1,11 @@
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,22 +16,42 @@ public class GameIO extends JFrame {
   private BufferedImage displayArea;
 
   private int scale;
-  private double cellMargin;
 
   private final Map<Integer, Runnable> inputMap;
 
-  public GameIO(Game game, int scale, double cellMargin) {
+  private static BufferedImage FLOOR_IMAGE;
+  private static BufferedImage WALL_IMAGE;
+  private static BufferedImage PLAYER_IMAGE;
+  private static BufferedImage BOX_IMAGE;
+  private static BufferedImage GOAL_IMAGE;
+  private static BufferedImage BOX_ON_GOAL_IMAGE;
+
+  public GameIO(Game game, int scale) {
     this.game = game;
     this.scale = scale;
-    this.cellMargin = Math.min(cellMargin, 1);
 
     inputMap = Map.of(KeyEvent.VK_UP, game::moveUp, KeyEvent.VK_DOWN, game::moveDown,
         KeyEvent.VK_LEFT, game::moveLeft, KeyEvent.VK_RIGHT, game::moveRight, KeyEvent.VK_ESCAPE,
         game::resetField);
 
+    loadImages();
+
     initInput();
     initOutput();
     updateOutput();
+  }
+
+  private void loadImages() {
+    try {
+      FLOOR_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/floor.png"));
+      WALL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/wall.png"));
+      PLAYER_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/player.png"));
+      BOX_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/box.png"));
+      GOAL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/goal.png"));
+      BOX_ON_GOAL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/box_on_goal.png"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   private void initOutput() {
@@ -61,39 +79,40 @@ public class GameIO extends JFrame {
     });
   }
 
-  private Color getColorFromField(byte field) {
-    if ((field & game.WALL_MASK) > 0) {
-      // Wall
-      return new Color(161, 149, 85);
-    } else if ((field & game.PLAYER_MASK) > 0) {
-      // Player
-      return new Color(40, 149, 255);
-    } else if ((field & game.BOX_MASK) > 0 && (field & game.GOAL_MASK) > 0) {
-      // Box on goal
-      return new Color(186, 101, 12);
-    } else if ((field & game.GOAL_MASK) > 0) {
-      // Goal
-      return new Color(214, 149, 133);
-    } else if ((field & game.BOX_MASK) > 0) {
-      // Box
-      return new Color(255, 182, 80);
-    }
-
-    // Empty
-    return new Color(222, 214, 174);
-  }
-
   private void updateOutput() {
     Graphics2D g2d = (Graphics2D) displayArea.getGraphics();
-    g2d.setStroke(new BasicStroke((float) (scale * cellMargin)));
+
     for (int x = 0; x < game.getRowCount(); x++) {
       for (int y = 0; y < game.getColCount(); y++) {
-        int scaledX = x * scale + scale / 2;
-        int scaledY = y * scale + scale / 2;
-        g2d.setColor(getColorFromField(game.getField()[y][x]));
-        g2d.drawLine(scaledX, scaledY, scaledX, scaledY);
+        int scaledX = x * scale;
+        int scaledY = y * scale;
+
+        byte field = game.getField()[y][x];
+
+        if ((field & game.WALL_MASK) > 0) {
+          g2d.drawImage(WALL_IMAGE, scaledX, scaledY, scale, scale, null);
+        } else {
+          g2d.drawImage(FLOOR_IMAGE, scaledX, scaledY, scale, scale, null);
+        }
+
+        if ((field & game.PLAYER_MASK) > 0) {
+          g2d.drawImage(PLAYER_IMAGE, scaledX, scaledY, scale, scale, null);
+        }
+
+        if ((field & game.BOX_MASK) > 0) {
+          if ((field & game.GOAL_MASK) > 0) {
+            g2d.drawImage(BOX_ON_GOAL_IMAGE, scaledX, scaledY, scale, scale, null);
+          } else {
+            g2d.drawImage(BOX_IMAGE, scaledX, scaledY, scale, scale, null);
+          }
+        } else if ((field & game.GOAL_MASK) > 0) {
+          g2d.drawImage(GOAL_IMAGE, scaledX, scaledY, scale, scale, null);
+        }
       }
     }
+
+    g2d.dispose();
+
     repaint();
   }
 }

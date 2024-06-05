@@ -1,6 +1,6 @@
 
 public class Starter {
   public static void main(String[] args) {
-    new GameIO(new Game(), 96, 0.9);
+    new GameIO(new Game(), 96);
   }
 }
