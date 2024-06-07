@@ -51,14 +51,22 @@ public class Game {
     moveDirection(Direction.RIGHT);
   }
 
+  private boolean isOutOfBounds(Position position) {
+    return position.x < 0 || position.x >= gameField.length || position.y < 0 || position.y >= gameField[0].length;
+  }
+
   private void moveDirection(Direction direction) {
     Position playerPosition = getPlayerPosition();
     Position nextPosition = getNextPosition(playerPosition, direction);
+    if (isOutOfBounds(nextPosition))
+      return;
     if ((gameField[nextPosition.x][nextPosition.y] & WALL_MASK) > 0)
       return;
 
     if ((gameField[nextPosition.x][nextPosition.y] & BOX_MASK) > 0) {
       Position nextBoxPosition = getNextPosition(nextPosition, direction);
+      if (isOutOfBounds(nextBoxPosition))
+        return;
       if ((gameField[nextBoxPosition.x][nextBoxPosition.y] & WALL_MASK) > 0
           || (gameField[nextBoxPosition.x][nextBoxPosition.y] & BOX_MASK) > 0)
         return;
@@ -71,12 +79,11 @@ public class Game {
     gameField[playerPosition.x][playerPosition.y] &= ~PLAYER_MASK;
 
     if (useLevels) {
-    checkWin();
+      checkWin();
     }
   }
 
   private Position getNextPosition(Position firstPosition, Direction direction) {
-    // TODO: Handle out of bounds
     Position nextPosition = new Position();
     switch (direction) {
       case UP:
