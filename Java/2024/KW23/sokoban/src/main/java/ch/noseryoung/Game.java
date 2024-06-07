@@ -19,9 +19,16 @@ public class Game {
   private byte[][] gameField;
   private int level = 0;
 
+  private boolean useLevels = true;
+
   public Game() {
     Levels.loadLevels();
     resetField();
+  }
+
+  public Game(byte[][] gameField) {
+    this.gameField = gameField;
+    this.useLevels = false;
   }
 
   public void moveUp() {
@@ -63,7 +70,9 @@ public class Game {
     gameField[nextPosition.x][nextPosition.y] |= PLAYER_MASK;
     gameField[playerPosition.x][playerPosition.y] &= ~PLAYER_MASK;
 
+    if (useLevels) {
     checkWin();
+    }
   }
 
   private Position getNextPosition(Position firstPosition, Direction direction) {
