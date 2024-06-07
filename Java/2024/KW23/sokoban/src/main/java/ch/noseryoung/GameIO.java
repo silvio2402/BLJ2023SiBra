@@ -1,3 +1,4 @@
+package ch.noseryoung;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -43,13 +44,14 @@ public class GameIO extends JFrame {
 
   private void loadImages() {
     try {
-      FLOOR_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/floor.png"));
-      WALL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/wall.png"));
-      PLAYER_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/player.png"));
-      BOX_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/box.png"));
-      GOAL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/goal.png"));
-      BOX_ON_GOAL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/resources/box_on_goal.png"));
+      FLOOR_IMAGE = ImageIO.read(getClass().getResourceAsStream("/floor.png"));
+      WALL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/wall.png"));
+      PLAYER_IMAGE = ImageIO.read(getClass().getResourceAsStream("/player.png"));
+      BOX_IMAGE = ImageIO.read(getClass().getResourceAsStream("/box.png"));
+      GOAL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/goal.png"));
+      BOX_ON_GOAL_IMAGE = ImageIO.read(getClass().getResourceAsStream("/box_on_goal.png"));
     } catch (Exception e) {
+      System.out.println("Failed to load images");
       e.printStackTrace();
     }
   }

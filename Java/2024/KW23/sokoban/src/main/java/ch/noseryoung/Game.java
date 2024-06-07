@@ -1,3 +1,4 @@
+package ch.noseryoung;
 
 enum Direction {
   UP, DOWN, LEFT, RIGHT
