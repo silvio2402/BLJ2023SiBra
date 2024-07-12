@@ -4,7 +4,7 @@
 #include <list>
 #include <memory>
 
-#include "inventory.h"
+#include "item.h"
 #include "location.h"
 using std::list;
 using std::string;
