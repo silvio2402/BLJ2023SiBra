@@ -21,6 +21,7 @@
           "value": "${env:PATH}:${command:cmake.getLaunchTargetDirectory}"
         },
       ],
+      "preLaunchTask": "CMake: build",
       "externalConsole": false,
       "MIMode": "gdb",
       "setupCommands": [
